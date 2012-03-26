@@ -15,8 +15,8 @@
  */
 package com.github.mkroli.phonetics
 
-object KoelnerPhonetics {
-  def apply(s: String) = {
+object KoelnerPhonetics extends PhoneticAlgorithm {
+  override def phonetic(s: String) = {
     s.toUpperCase.toSeq.contextFlatMap {
       case (_, 'A' | 'E' | 'I' | 'J' | 'O' | 'U' | 'Y', _) => Seq(0)
       case (_, 'H', _) => Nil
@@ -50,6 +50,6 @@ object KoelnerPhonetics {
     }.contextFlatMap {
       case (Some(_), c, _) if (c == 0) => Nil
       case (_, c, _) => Seq(c)
-    }
+    }.mkString
   }
 }
