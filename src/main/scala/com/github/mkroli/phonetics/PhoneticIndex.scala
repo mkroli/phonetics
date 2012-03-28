@@ -1,7 +1,7 @@
 package com.github.mkroli.phonetics
 import scala.collection.mutable.HashMap
 
-class PhoneticIndex(encoder: PhoneticAlgorithm) {
+class PhoneticIndex[T <: PhoneticAlgorithm](encoder: T) {
   private var index = new HashMap[String, List[String]]
 
   def addWord(word: String) {
@@ -11,6 +11,15 @@ class PhoneticIndex(encoder: PhoneticAlgorithm) {
       case None => List(word)
     })
   }
+
+  def addWords(words: String*) =
+    words foreach addWord _
+
+  def addText(text: String) =
+    addWords(text.split("\\s+"): _*)
+
+  def apply(word: String) =
+    index.getOrElse(encoder(word), Nil)
 
   override def toString = "PhoneticIndex(" + index.toString + ")"
 }

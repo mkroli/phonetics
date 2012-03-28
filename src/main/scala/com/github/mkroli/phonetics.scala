@@ -27,7 +27,7 @@ package object phonetics {
   private[phonetics] class RichSeq[T](s: Seq[T]) {
     def contextFlatMap[O](fun: (Option[T], T, Option[T]) => Seq[O]): Seq[O] = {
       for {
-        i <- 0 until s.length
+        i <- 0 until s.size
         m <- fun(if (i > 0) Some(s(i - 1)) else None,
           s(i),
           if (i + 1 < s.length) Some(s(i + 1)) else None)
