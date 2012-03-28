@@ -20,6 +20,8 @@ package object phonetics {
 
   class PhoneticsString(s: String) {
     def koelnerPhonetics = KoelnerPhonetics(s)
+
+    def soundex = Soundex(s)
   }
 
   implicit private[phonetics] def seqToRichSeq[T](s: Seq[T]) = new RichSeq(s)
